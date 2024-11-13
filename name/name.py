@@ -45,9 +45,8 @@ if page == "이름 입력":
 # 2025 수험생 명단 확인 페이지
 elif page == "2025 수험생 명단 확인":
     st.title('2025학년도 수험생 기도 명단')
-    st.header(' ')
 
-    # 이 페이지에서 양옆 여백을 없애기 위한 CSS 추가
+    # 모바일에서 화면에 맞추도록 CSS 추가
     st.markdown(
         """
         <style>
@@ -57,19 +56,18 @@ elif page == "2025 수험생 명단 확인":
         }
         .scrollable-table {
             width: 100%;
-            overflow-x: hidden;
+            overflow-x: auto;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed; /* 각 열이 화면을 균등하게 차지하도록 설정 */
+            table-layout: auto; /* 모바일 화면에 맞게 열 크기 자동 조정 */
         }
         td {
-            padding: 15px;
-            font-size: 20px;
+            padding: 10px;
+            font-size: 18px;
             text-align: center;
-            word-wrap: break-word; /* 셀 내의 긴 이름이 잘리지 않고 줄바꿈되도록 설정 */
-            height: 50px; /* 셀 높이 설정 */
+            word-wrap: break-word;
         }
         </style>
         """,
@@ -84,12 +82,11 @@ elif page == "2025 수험생 명단 확인":
             name_table_html += "<tr>" + "".join([f"<td><b>{name}</b></td>" for name in row]) + "</tr>"
         name_table_html += "</table>"
 
-
         # 무한 스크롤 애니메이션 설정
         st.markdown(
             f"""
             <div class='scrollable-table' style='height: 800px;'>
-                <div style='position: relative; animation: scrollAnimation 80s linear infinite;'>
+                <div style='position: relative; animation: scrollAnimation 90s linear infinite;'>
                     {name_table_html}
                     {name_table_html} <!-- 무한 스크롤 -->
                 </div>
@@ -105,6 +102,7 @@ elif page == "2025 수험생 명단 확인":
         )
     else:
         st.write('아직 입력된 이름이 없습니다.')
+
 
 # 엑셀 파일 업로드 페이지
 elif page == "엑셀 파일 업로드":
