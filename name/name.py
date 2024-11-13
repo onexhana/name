@@ -65,7 +65,7 @@ elif page == "2025 수험생 명단 확인":
         }
         td {
             padding: 10px;
-            font-size: 18px;
+            font-size: 25px;
             text-align: center;
             word-wrap: break-word;
         }
