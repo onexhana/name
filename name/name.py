@@ -65,7 +65,7 @@ elif page == "2025 수험생 명단 확인":
         }
         td {
             padding: 10px;
-            font-size: 25px;
+            font-size: 40px;
             text-align: center;
             word-wrap: break-word;
         }
@@ -76,7 +76,7 @@ elif page == "2025 수험생 명단 확인":
 
     if st.session_state['name_list']:
         # 이름 목록을 10개씩 묶어 테이블 형식으로 구성
-        rows = [st.session_state['name_list'][i:i+10] for i in range(0, len(st.session_state['name_list']), 10)]
+        rows = [st.session_state['name_list'][i:i+6] for i in range(0, len(st.session_state['name_list']), 6)]
         name_table_html = "<table>"
         for row in rows:
             name_table_html += "<tr>" + "".join([f"<td><b>{name}</b></td>" for name in row]) + "</tr>"
