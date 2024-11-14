@@ -25,7 +25,7 @@ if 'name_list' not in st.session_state:
     st.session_state['name_list'] = load_names()
 
 # 사이드바에 페이지 선택 메뉴 추가
-page = st.sidebar.radio("페이지 선택", ["이름 입력", "2025 수험생 명단 확인", "엑셀 파일 업로드"])
+page = st.sidebar.radio("페이지 선택", ["이름 입력", "2025 수험생 명단 확인", "엑셀 파일 업로드", "이름 삭제"])
 
 # 이름 입력 페이지
 if page == "이름 입력":
@@ -49,8 +49,7 @@ elif page == "2025 수험생 명단 확인":
     # 사이드바에 기도 명단 인원 수를 작은 글씨로 표시
     st.sidebar.metric("기도 명단 인원", len(st.session_state['name_list']))
 
-    # CSS로 좌측에 작은 크기로 기도 명단 인원 표시
-# CSS로 우측 상단에 작은 크기로 기도 명단 인원 표시
+    # CSS로 우측 상단에 작은 크기로 기도 명단 인원 표시
     st.markdown(
     f"""
     <style>
@@ -59,18 +58,16 @@ elif page == "2025 수험생 명단 확인":
         color: gray;
         text-align: right;
         position: absolute;
-        top: 0px; /* 위쪽 여백 */
-        right: 0; /* 우측 정렬 */
-        margin-right: 0px; /* 오른쪽 여백 */
-        margin-bottom: 0px; /* 아래쪽 여백 */
+        top: 0px;
+        right: 0;
+        margin-right: 0px;
+        margin-bottom: 0px;
     }}
     </style>
-    <div class="left-info"> 수험생 명단 인원: {len(st.session_state['name_list'])}명</div>
+    <div class="left-info">기도 명단 인원: {len(st.session_state['name_list'])}명</div>
     """,
     unsafe_allow_html=True
-)
-
-
+    )
 
     # 모바일에서 화면에 맞추도록 CSS 추가
     st.markdown(
@@ -87,7 +84,7 @@ elif page == "2025 수험생 명단 확인":
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: auto; /* 모바일 화면에 맞게 열 크기 자동 조정 */
+            table-layout: auto;
         }
         td {
             padding: 20px;
@@ -102,7 +99,7 @@ elif page == "2025 수험생 명단 확인":
 
     if st.session_state['name_list']:
         # 이름 목록을 10개씩 묶어 테이블 형식으로 구성
-        rows = [st.session_state['name_list'][i:i+6] for i in range(0, len(st.session_state['name_list']),6)]
+        rows = [st.session_state['name_list'][i:i+6] for i in range(0, len(st.session_state['name_list']), 6)]
         name_table_html = "<table>"
         for row in rows:
             name_table_html += "<tr>" + "".join([f"<td><b>{name}</b></td>" for name in row]) + "</tr>"
@@ -129,7 +126,6 @@ elif page == "2025 수험생 명단 확인":
     else:
         st.write('아직 입력된 이름이 없습니다.')
 
-
 # 엑셀 파일 업로드 페이지
 elif page == "엑셀 파일 업로드":
     st.title('엑셀 파일 기도 명단 업데이트')
@@ -152,3 +148,16 @@ elif page == "엑셀 파일 업로드":
             st.success(f'엑셀 파일에서 {added_count}개의 새로운 이름이 추가되었습니다.')
         else:
             st.error('엑셀 파일에 "이름" 열이 없습니다.')
+
+# 이름 삭제 페이지
+elif page == "이름 삭제":
+    st.title('이름 삭제')
+    if st.session_state['name_list']:
+        delete_name = st.selectbox("삭제할 이름을 선택하세요:", st.session_state['name_list'])
+        if st.button('삭제'):
+            if delete_name in st.session_state['name_list']:
+                st.session_state['name_list'].remove(delete_name)
+                save_names(st.session_state['name_list'])
+                st.success(f'{delete_name} 학생이 명단에서 삭제되었습니다.')
+    else:
+        st.write("현재 기도 명단에 이름이 없습니다.")
