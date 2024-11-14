@@ -65,7 +65,7 @@ elif page == "2025 수험생 명단 확인":
         margin-bottom: 0px; /* 아래쪽 여백 */
     }}
     </style>
-    <div class="left-info">기도 명단 인원: {len(st.session_state['name_list'])}명</div>
+    <div class="left-info"> 수험생 명단 인원: {len(st.session_state['name_list'])}명</div>
     """,
     unsafe_allow_html=True
 )
