@@ -109,7 +109,7 @@ elif page == "2025 수험생 명단 확인":
         st.markdown(
             f"""
             <div class='scrollable-table' style='height: 800px;'>
-                <div style='position: relative; animation: scrollAnimation 300s linear infinite;'>
+                <div style='position: relative; animation: scrollAnimation 450s linear infinite;'>
                     {name_table_html}
                     {name_table_html} <!-- 무한 스크롤 -->
                 </div>
