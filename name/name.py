@@ -46,6 +46,32 @@ if page == "이름 입력":
 elif page == "2025 수험생 명단 확인":
     st.title('2025학년도 수험생 기도 명단')
 
+    # 사이드바에 기도 명단 인원 수를 작은 글씨로 표시
+    st.sidebar.metric("기도 명단 인원", len(st.session_state['name_list']))
+
+    # CSS로 좌측에 작은 크기로 기도 명단 인원 표시
+# CSS로 우측 상단에 작은 크기로 기도 명단 인원 표시
+    st.markdown(
+    f"""
+    <style>
+    .left-info {{
+        font-size: 20px;
+        color: gray;
+        text-align: right;
+        position: absolute;
+        top: 0px; /* 위쪽 여백 */
+        right: 0; /* 우측 정렬 */
+        margin-right: 0px; /* 오른쪽 여백 */
+        margin-bottom: 0px; /* 아래쪽 여백 */
+    }}
+    </style>
+    <div class="left-info">기도 명단 인원: {len(st.session_state['name_list'])}명</div>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
     # 모바일에서 화면에 맞추도록 CSS 추가
     st.markdown(
         """
@@ -64,7 +90,7 @@ elif page == "2025 수험생 명단 확인":
             table-layout: auto; /* 모바일 화면에 맞게 열 크기 자동 조정 */
         }
         td {
-            padding: 10px;
+            padding: 20px;
             font-size: 40px;
             text-align: center;
             word-wrap: break-word;
@@ -76,7 +102,7 @@ elif page == "2025 수험생 명단 확인":
 
     if st.session_state['name_list']:
         # 이름 목록을 10개씩 묶어 테이블 형식으로 구성
-        rows = [st.session_state['name_list'][i:i+6] for i in range(0, len(st.session_state['name_list']), 6)]
+        rows = [st.session_state['name_list'][i:i+6] for i in range(0, len(st.session_state['name_list']),6)]
         name_table_html = "<table>"
         for row in rows:
             name_table_html += "<tr>" + "".join([f"<td><b>{name}</b></td>" for name in row]) + "</tr>"
